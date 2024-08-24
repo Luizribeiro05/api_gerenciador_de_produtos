@@ -11,4 +11,5 @@ public interface FornecedorService {
     Fornecedor BuscarFornecedorPeloId(Long id);
     List<Fornecedor> buscarTodosFornecedores();
     Fornecedor atualizarFornecedor(Long id, CriarFornecedorRequest criarFornecedorRequest);
+    void deletarFornecedorPeloId(Long id);
 }

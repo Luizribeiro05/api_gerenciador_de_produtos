@@ -49,7 +49,8 @@ public class FornecedorServiceImpl implements FornecedorService {
     @Override
     public Fornecedor atualizarFornecedor(Long id, CriarFornecedorRequest criarFornecedorRequest) {
         Fornecedor fornecedorExistente = fornecedorRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Fonecedor não encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Fornecedor não encontrado"));
 
         fornecedorExistente.setNome(criarFornecedorRequest.nome());
         fornecedorExistente.setCnpj(criarFornecedorRequest.cnpj());
@@ -57,6 +58,14 @@ public class FornecedorServiceImpl implements FornecedorService {
         fornecedorExistente.setTipoFornecedor(criarFornecedorRequest.tipoFornecedor());
 
         return fornecedorRepository.save(fornecedorExistente);
+    }
+
+    @Override
+    public void deletarFornecedorPeloId(Long id) {
+        Fornecedor fornecedorExistente = fornecedorRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Fornecedor não encontrado"));
+        fornecedorRepository.delete(fornecedorExistente);
     }
 
 }
