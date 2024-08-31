@@ -1,4 +1,4 @@
-package br.com.gereciadordeprodutos.api;
+package br.com.gerenciadordeprodutos.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
