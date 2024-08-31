@@ -13,34 +13,39 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/fornecedores")
-public class FonecedorController {
+public class FornecedorController {
 
     @Autowired
     FornecedorService fornecedorService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public FornecedorCriadoResponse criarFornecedor(@Valid @RequestBody CriarFornecedorRequest criarFornecedorRequest){
+    public FornecedorCriadoResponse criarFornecedor(@Valid @RequestBody CriarFornecedorRequest criarFornecedorRequest) {
         return fornecedorService.criarFornecedor(criarFornecedorRequest);
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Fornecedor buscarFornecedorPeloId(@PathVariable Long id){
-        return fornecedorService.BuscarFornecedorPeloId(id);
+    public Fornecedor buscarFornecedorPeloId(@PathVariable Long id) {
+        return fornecedorService.buscarFornecedorPeloId(id);
     }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Fornecedor> buscarTodosFornecedores() {
         return fornecedorService.buscarTodosFornecedores();
     }
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Fornecedor atualizarFornecedor(@Valid @PathVariable Long id, @RequestBody CriarFornecedorRequest criarFornecedorRequest) {
+    public Fornecedor atualizarFornecedor(@PathVariable Long id, @RequestBody CriarFornecedorRequest criarFornecedorRequest) {
         return fornecedorService.atualizarFornecedor(id, criarFornecedorRequest);
     }
-    @DeleteMapping("/id")
+
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletarForncedorPeloId(@PathVariable Long id){
+    public void deletarFornecedorPeloId(@PathVariable Long id) {
         fornecedorService.deletarFornecedorPeloId(id);
     }
+
 }

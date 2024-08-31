@@ -2,6 +2,7 @@ package br.com.gerenciadordeprodutos.api.service;
 
 import br.com.gerenciadordeprodutos.api.dtos.CriarFornecedorRequest;
 import br.com.gerenciadordeprodutos.api.dtos.FornecedorCriadoResponse;
+import br.com.gerenciadordeprodutos.api.model.Endereco;
 import br.com.gerenciadordeprodutos.api.model.Fornecedor;
 import br.com.gerenciadordeprodutos.api.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,25 @@ public class FornecedorServiceImpl implements FornecedorService {
 
     @Override
     public FornecedorCriadoResponse criarFornecedor(CriarFornecedorRequest criarFornecedorRequest) {
+        Endereco endereco = new Endereco(
+                null,
+                criarFornecedorRequest.endereco().logradouro(),
+                criarFornecedorRequest.endereco().numero(),
+                criarFornecedorRequest.endereco().complemento(),
+                criarFornecedorRequest.endereco().bairro(),
+                criarFornecedorRequest.endereco().cidade(),
+                criarFornecedorRequest.endereco().estado(),
+                criarFornecedorRequest.endereco().pais(),
+                criarFornecedorRequest.endereco().cep()
+        );
+
         Fornecedor fornecedor = new Fornecedor();
         fornecedor.setNome(criarFornecedorRequest.nome());
         fornecedor.setCnpj(criarFornecedorRequest.cnpj());
         fornecedor.setEmail(criarFornecedorRequest.email());
         fornecedor.setTipoFornecedor(criarFornecedorRequest.tipoFornecedor());
         fornecedor.setCriadoEm(LocalDateTime.now());
+        fornecedor.setEndereco(endereco);
 
         Fornecedor fornecedorCriado = fornecedorRepository.save(fornecedor);
 
@@ -36,9 +50,10 @@ public class FornecedorServiceImpl implements FornecedorService {
     }
 
     @Override
-    public Fornecedor BuscarFornecedorPeloId(Long id) {
+    public Fornecedor buscarFornecedorPeloId(Long id) {
         return fornecedorRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Fonecedor não encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Fornecedor não encontrado"));
     }
 
     @Override
@@ -66,6 +81,6 @@ public class FornecedorServiceImpl implements FornecedorService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Fornecedor não encontrado"));
         fornecedorRepository.delete(fornecedorExistente);
+        //fornecedorRepository.deleteById(fornecedorExistente.getId());
     }
-
 }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface FornecedorService {
     FornecedorCriadoResponse criarFornecedor(CriarFornecedorRequest criarFornecedorRequest);
-    Fornecedor BuscarFornecedorPeloId(Long id);
+    Fornecedor buscarFornecedorPeloId(Long id);
     List<Fornecedor> buscarTodosFornecedores();
     Fornecedor atualizarFornecedor(Long id, CriarFornecedorRequest criarFornecedorRequest);
     void deletarFornecedorPeloId(Long id);
